@@ -119,4 +119,9 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	public void setHintText(String hintText){
 		this.hintText.setText(hintText);
 	}
+
+	public static byte[] getPngData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

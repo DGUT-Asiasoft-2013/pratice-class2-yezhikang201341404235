@@ -1,5 +1,7 @@
 package com.example.helloworld.fragments.inputcells;
 
+import java.io.ByteArrayOutputStream;
+
 import com.example.helloworld.R;
 
 import android.app.Activity;
@@ -8,6 +10,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,6 +29,11 @@ public class PictureInputFragment extends BaseInputCellFragment{
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
+	byte[] pngData;
+	public byte[] getPngData(){
+		return pngData;
+	}
+
 	@Override
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +103,11 @@ public class PictureInputFragment extends BaseInputCellFragment{
 			}
 		}
 	}
+	void savebitmap(Bitmap bmp){
+		ByteArrayOutputStream baos=new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, baos);
+		pngData=baos.toByteArray();
+}
 	public void setLabelText(String labelText){
 		this.labelText.setText(labelText);
 	}

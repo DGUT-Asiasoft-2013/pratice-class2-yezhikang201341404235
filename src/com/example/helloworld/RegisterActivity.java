@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import java.io.IOException;
 
+import com.example.helloworld.fragments.inputcells.PictureInputCellFragment;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;
 
 import android.app.Activity;
@@ -12,9 +13,11 @@ import android.os.Bundle;
 import android.view.View;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterActivity extends Activity {
@@ -103,7 +106,14 @@ public class RegisterActivity extends Activity {
 				.addFormDataPart("name", name)
 				.addFormDataPart("email", email)
 				.addFormDataPart("passwordHash", password);
+		byte[] pngData = PictureInputCellFragment.getPngData();
+		if(pngData != null){
+			RequestBody pndDataBody = RequestBody.create(MediaType.parse("image/png"), pngData);
+			requestBodyBuilder.addFormDataPart("avatar", "avatar.png", pndDataBody);
+		}
 		
+		MultipartBody postBody = requestBodyBuilder.build();
+
 		
 			
 		
