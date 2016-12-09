@@ -60,7 +60,7 @@ public class FeedListFragment extends Fragment {
 			
 			if(convertView==null){
 				LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-				view = inflater.inflate(R.layout.fragment_single_list, null);	
+				view = inflater.inflate(android.R.layout.simple_list_item_1, null);	
 			}else{
 				view = convertView;
 			}
