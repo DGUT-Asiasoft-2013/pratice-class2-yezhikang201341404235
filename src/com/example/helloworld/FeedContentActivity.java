@@ -11,7 +11,7 @@ public class FeedContentActivity extends Activity {
 		
 		setContentView(R.layout.activity_feed_content);
 		
-		String text = getIntent().getStringExtra("text");//回调TEXT的内容
+		String text = getIntent().getStringExtra("text");
 		
 		TextView textView = (TextView) findViewById(R.id.text);
 		textView.setText(text);

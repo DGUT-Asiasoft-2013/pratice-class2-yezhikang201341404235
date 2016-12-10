@@ -9,7 +9,7 @@ public class NewContentActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_content);
-		//创建新的Activity
+		
 		findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
 			
 			@Override

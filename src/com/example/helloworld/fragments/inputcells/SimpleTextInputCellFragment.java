@@ -35,6 +35,9 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 		edit.setHint(hintText);
 	}
 	
+	public String getText(){
+		return edit.getText().toString();
+	}
 	
 	public void setIsPassword(boolean isPassword){
 		if(isPassword){
@@ -43,7 +46,4 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
 		}		
 	}
-	public String getText() {
-		return edit.getText().toString();
-}
 }

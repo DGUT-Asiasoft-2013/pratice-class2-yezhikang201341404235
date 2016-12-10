@@ -43,7 +43,7 @@ public class FeedListFragment extends Fragment {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					onItemClicked(position);//添加Adapter的监听事件
+					onItemClicked(position);
 				}
 			});
 		}

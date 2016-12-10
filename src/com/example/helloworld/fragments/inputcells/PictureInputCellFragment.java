@@ -36,7 +36,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
-	 byte[] pngData;
+	
+	byte[] pngData;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,8 +59,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 
 	void onImageViewClicked(){
 		String[] items = {
-				"æ‹ç…§",
-				"ç›¸å†Œ"
+				"ÅÄÕÕ",
+				"Ïà²á"
 		};
 
 		new AlertDialog.Builder(getActivity())
@@ -81,7 +82,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 				}
 			}
 		})
-		.setNegativeButton("å–æ¶ˆ", null)
+		.setNegativeButton("È¡Ïû", null)
 		.show();
 	}
 
@@ -99,7 +100,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	void saveBitmap(Bitmap bmp){
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bmp.compress(CompressFormat.PNG, 100, baos);
-		 pngData = baos.toByteArray();
+		pngData = baos.toByteArray();
 	}
 	
 	@Override
