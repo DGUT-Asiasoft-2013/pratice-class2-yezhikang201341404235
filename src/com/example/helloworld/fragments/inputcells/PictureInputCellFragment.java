@@ -1,5 +1,6 @@
 package com.example.helloworld.fragments.inputcells;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
@@ -34,6 +36,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
+	 byte[] pngData;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,8 +58,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 
 	void onImageViewClicked(){
 		String[] items = {
-				"≈ƒ’’",
-				"œ‡≤·"
+				"ÊãçÁÖß",
+				"Áõ∏ÂÜå"
 		};
 
 		new AlertDialog.Builder(getActivity())
@@ -78,7 +81,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 				}
 			}
 		})
-		.setNegativeButton("»°œ˚", null)
+		.setNegativeButton("ÂèñÊ∂à", null)
 		.show();
 	}
 
@@ -93,6 +96,12 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		startActivityForResult(itnt, REQUESTCODE_ALBUM);
 	}
 
+	void saveBitmap(Bitmap bmp){
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, baos);
+		 pngData = baos.toByteArray();
+	}
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == Activity.RESULT_CANCELED) return;
@@ -100,11 +109,15 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		if(requestCode == REQUESTCODE_CAMERA){
 
 			Bitmap bmp = (Bitmap)data.getExtras().get("data");
+			saveBitmap(bmp);
+			
 			imageView.setImageBitmap(bmp);
 		}else if(requestCode == REQUESTCODE_ALBUM){
 			
 			try {
 				Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+				saveBitmap(bmp);
+				
 				imageView.setImageBitmap(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -119,9 +132,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	public void setHintText(String hintText){
 		this.hintText.setText(hintText);
 	}
-
-	public static byte[] getPngData() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public byte[] getPngData(){
+		return pngData;
 	}
 }
