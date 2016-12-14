@@ -3,6 +3,7 @@ package com.example.helloworld;
 import java.io.IOException;
 
 import com.example.helloworld.api.Server;
+import com.example.helloworld.api.entity.Article;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,16 +17,18 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class NewContentActivity extends Activity {
-	EditText editTitle, editText;
+public class NewCommentActivity extends Activity {
+	EditText editText;
+	Article article;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_content);
+		setContentView(R.layout.activity_new_comment);
 		
-		editTitle = (EditText) findViewById(R.id.title);
 		editText = (EditText) findViewById(R.id.text);
+	
+		article = (Article) getIntent().getSerializableExtra("data");
 		
 		findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
 			
@@ -38,16 +41,14 @@ public class NewContentActivity extends Activity {
 	
 	void sendContent(){
 		String text = editText.getText().toString();
-		String title = editTitle.getText().toString();
 		
 		// check these value is not null
 		
 		MultipartBody body = new MultipartBody.Builder()
-				.addFormDataPart("title", title)
 				.addFormDataPart("text", text)
 				.build();
 		
-		Request request = Server.requestBuilderWithApi("article")
+		Request request = Server.requestBuilderWithApi("/article/"+article.getId()+"/comments")
 				.post(body)
 				.build();
 		
@@ -58,7 +59,7 @@ public class NewContentActivity extends Activity {
 				
 				runOnUiThread(new Runnable() {
 					public void run() {
-						NewContentActivity.this.onSucceed(responseBody);
+						NewCommentActivity.this.onSucceed(responseBody);
 					}
 				});
 			}
@@ -67,7 +68,7 @@ public class NewContentActivity extends Activity {
 			public void onFailure(Call arg0, final IOException arg1) {
 				runOnUiThread(new Runnable() {
 					public void run() {
-						NewContentActivity.this.onFailure(arg1);
+						NewCommentActivity.this.onFailure(arg1);
 					}
 				});
 			}
